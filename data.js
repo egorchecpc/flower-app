@@ -4,7 +4,7 @@ const flowers = [
     name: 'Easy Flower',
     cart: false,
     price: '39.99',
-    like: true,
+    like: false,
     img: require('./assets/flower3.png'),
     about: '22 years later, these same beliefs have grown EASYFLOWERS into one of the largest and most reliable floral networks in Australia, with over 300 skilled independent florists delivering to almost every crack and crevice of this great southern land.',
     
@@ -37,21 +37,5 @@ const flowers = [
     about: 'Roses are arguably the most common and most popular flower species in the world. These flowers belong to the genus Rosa, and there are at least 360 species under this. These flowers can be found naturally in different colors, such as red, pink, peach, and white'
   }, 
 ]
-
-export const setLike = (currentId, likeStatus) => {
-  flowers.forEach((item) => {
-    if (item.id === currentId) {
-      item.like = likeStatus;
-    }
-  });
-};
-
-export const setCartStatus = (currentId, cartStatus) => {
-  flowers.forEach((item) => {
-    if (item.id === currentId) {
-      item.cart = cartStatus;
-    }
-  });
-};
 
 export default flowers;

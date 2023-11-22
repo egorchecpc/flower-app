@@ -3,28 +3,24 @@ import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'rea
 import colors from '../helpers/colors';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import { setLike } from '../../data';
-import { setCartStatus } from '../../data';
 const width = Dimensions.get('screen').width/2 - 30
 
-const Card = ({flower, navigation}) => {
+const Card = ({flower, navigation, likeFlower, addToCart}) => {
   const [isLiked, setLiked] = useState(flower.item.like);
-  const [inCart, setCartSt] = useState(flower.item.cart)
-
+  const [inCart, setCartStatus] = useState(flower.item.cart)
   const handleLikePress = () => {
     setLiked(prevLiked => {
       const newLiked = !prevLiked;
-      setLike(flower.item.id, newLiked);
       return newLiked;
     });
-    setLike(flower.item.id, isLiked)
+    likeFlower(flower.item.id)
   };
   const handleCartPress = () => {
-    setCartSt(prevInCart => {
+    setCartStatus(prevInCart => {
       const newInCart = !prevInCart;
-      setCartStatus(flower.item.id, newInCart);
       return newInCart;
     });
+    addToCart(flower.item.id)
   }
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Details', flower) }>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Image } from 'react-native';
-import colors from '../helpers/colors';
+import { SafeAreaView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import colors from '../../helpers/colors';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 const DetailsScreen = ({navigation, route}) => {
@@ -9,7 +9,9 @@ const DetailsScreen = ({navigation, route}) => {
     <SafeAreaView style={{flex: 1, backgroundColor: '#f5f5f5'}}>
       <View style={styles.header}>
         <MaterialIcons name='arrow-back' size={28} onPress={() => navigation.goBack()} />
-        <MaterialIcons name='shopping-cart' size={28} />
+        <TouchableOpacity onPress={() => navigation.navigate('Cart') }>
+          <MaterialIcons name="shopping-cart" size={30} />
+        </TouchableOpacity>
       </View>
       <View style={styles.imageContainer}>
         <Image source={flower.item.img} style={{resizeMode: 'contain', flex: 1, height: 300, width: 300}} />

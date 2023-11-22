@@ -1,12 +1,11 @@
 import React from 'react';
 import { SafeAreaView, View, StyleSheet, FlatList } from 'react-native';
-import colors from '../helpers/colors';
+import colors from '../../helpers/colors';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import flowers from '../../data'
-import Card from './Card';
+import Card from '../Card';
 import { useState, useEffect } from 'react';
 
-const CartScreen = ({navigation}) => {
+const CartScreen = ({navigation, flowers}) => {
 
   const [cartFlowers,setCartFlowers] = useState(flowers.filter(flower => flower.cart == true))
   useEffect(() => {

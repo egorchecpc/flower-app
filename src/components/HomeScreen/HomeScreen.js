@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TextInput, FlatList, TouchableOpacity } from 'react-native';
-import colors from '../helpers/colors';
+import colors from '../../helpers/colors';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import CategoriesList from './CategoriesList';
-import Card from './Card';
-import flowers from '../../data'
+import CategoriesList from '../CategoriesList';
+import Card from '../Card';
 
-const HomeScreen = ({navigation}) => {
 
+const HomeScreen = ({navigation, flowers, likeFlower, addToCart}) => {
+  
   const [categoryIndex, setCategoryIndex] = useState(0);
 
   return (
@@ -36,7 +36,7 @@ const HomeScreen = ({navigation}) => {
                 showsVerticalScrollIndicator={false}
                 numColumns={2}
                 data={flowers}
-                renderItem={(item) => <Card flower={item} navigation={navigation} />} />
+                renderItem={(item) => <Card flower={item} navigation={navigation} likeFlower={likeFlower} addToCart={addToCart}/>} />
     </SafeAreaView>
   )
 }
