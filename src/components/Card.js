@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity } from 'rea
 import colors from '../helpers/colors';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+
 const width = Dimensions.get('screen').width/2 - 30
 
-const Card = ({flower, navigation, likeFlower, addToCart}) => {
+const Card = ({flower, navigation, likeFlower, addToCart, removeFromCart}) => {
   const [isLiked, setLiked] = useState(flower.item.like);
   const [inCart, setCartStatus] = useState(flower.item.cart)
   const handleLikePress = () => {
@@ -14,13 +15,18 @@ const Card = ({flower, navigation, likeFlower, addToCart}) => {
       return newLiked;
     });
     likeFlower(flower.item.id)
+    console.log(1)
   };
   const handleCartPress = () => {
     setCartStatus(prevInCart => {
       const newInCart = !prevInCart;
       return newInCart;
     });
-    addToCart(flower.item.id)
+    if (inCart) {
+      removeFromCart(flower.item.id);
+    } else {
+      addToCart(flower.item.id);
+    }
   }
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Details', flower) }>
@@ -47,8 +53,6 @@ const Card = ({flower, navigation, likeFlower, addToCart}) => {
             </View>
           </TouchableOpacity>
         </View>
-        <Text>{inCart.toString()}</Text>
-        <Text>{flower.item.cart.toString()}</Text>
       </View>
     </TouchableOpacity>
   )

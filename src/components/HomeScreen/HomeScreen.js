@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import colors from '../../helpers/colors';
 import Ionicons from '@expo/vector-icons/Ionicons'
@@ -7,8 +7,10 @@ import CategoriesList from '../CategoriesList';
 import Card from '../Card';
 
 
-const HomeScreen = ({navigation, flowers, likeFlower, addToCart}) => {
-  
+
+
+const HomeScreen = ({navigation, flowers, likeFlower, addToCart, removeFromCart}) => {
+
   const [categoryIndex, setCategoryIndex] = useState(0);
 
   return (
@@ -36,10 +38,11 @@ const HomeScreen = ({navigation, flowers, likeFlower, addToCart}) => {
                 showsVerticalScrollIndicator={false}
                 numColumns={2}
                 data={flowers}
-                renderItem={(item) => <Card flower={item} navigation={navigation} likeFlower={likeFlower} addToCart={addToCart}/>} />
+                renderItem={(item) => <Card flower={item} navigation={navigation} likeFlower={likeFlower} addToCart={addToCart} removeFromCart={removeFromCart}/>} />
     </SafeAreaView>
   )
 }
+
 
 const styles = StyleSheet.create({
   header: {
@@ -69,8 +72,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     alignItems: 'center',
     justifyContent: 'center'
-  }
-
+  },
+  
 })
 
 export default HomeScreen;
