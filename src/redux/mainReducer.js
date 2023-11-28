@@ -21,7 +21,7 @@ const mainReducer = (state = initialState, action) => {
           console.log('change state in reducer')
           return state.map((f) => {
             if (f.id === action.id) {
-              return { ...f, cart: true};
+              return { ...f, cart: !f.cart};
             } else {
               return f;
             }

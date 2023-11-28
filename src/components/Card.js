@@ -8,7 +8,7 @@ const width = Dimensions.get('screen').width/2 - 30
 
 const Card = ({flower, navigation, likeFlower, changeCartStatus}) => {
   const [isLiked, setLiked] = useState(flower.item.like);
-  const [inCart, setCartStatus] = useState(flower.item.cart)
+  
   const handleLikePress = () => {
     setLiked(prevLiked => {
       const newLiked = !prevLiked;
@@ -19,13 +19,7 @@ const Card = ({flower, navigation, likeFlower, changeCartStatus}) => {
     
   };
   const handleCartPress = () => {
-    setCartStatus(prevInCart => {
-      const newInCart = !prevInCart;
-      console.log('change in Card')
       changeCartStatus(flower.item.id)
-      return newInCart;
-    });
-    
   }
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Details', flower) }>
@@ -45,7 +39,7 @@ const Card = ({flower, navigation, likeFlower, changeCartStatus}) => {
           <Text style={{fontSize: 14, fontWeight: 'bold'}}>${flower.item.price}</Text>
           <TouchableOpacity onPress={handleCartPress}>
             <View style={{height:25, width: 25, borderRadius: 5, justifyContent: 'center', alignItems: 'center'}}>
-              {inCart
+              {flower.item.cart
               ?<Ionicons name='md-close-circle' size={25} color={colors.grey} />
               :<Ionicons name='md-add-circle' size={25} color={colors.orange} />
               }

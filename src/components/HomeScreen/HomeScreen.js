@@ -15,6 +15,7 @@ const HomeScreen = ({navigation, flowers, likeFlower, changeCartStatus}) => {
   const [flowersData, setFlowers] = useState(flowers);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
+  
   useEffect(()=>{
     setFlowers(flowers)
   },[flowers])

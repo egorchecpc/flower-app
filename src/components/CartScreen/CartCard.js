@@ -15,6 +15,7 @@ const CartCard = ({flower, navigation, changeCartStatus}) => {
       console.log(flower)
       changeCartStatus(flower.item.id)
       return newInCart;
+      
     });
     
   }
