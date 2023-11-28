@@ -1,10 +1,13 @@
 import React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import colors from '../../helpers/colors';
+import {useState} from 'react'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+
 
 const DetailsScreen = ({navigation, route}) => {
   const flower = route.params
+ 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#f5f5f5'}}>
       <View style={styles.header}>
@@ -28,20 +31,7 @@ const DetailsScreen = ({navigation, route}) => {
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>Details</Text>
           <View style={{marginTop:1, width: 70, height:2, backgroundColor: colors.orange}} />
           <Text style={{marginTop: 5, lineHeight: 22, color: 'grey', fontSize: 16}}>{flower.item.about}</Text>
-          <View style={styles.purchaseFlower}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <View style={styles.borderBtn}>
-                <Text style={styles.borderBtnText}>-</Text>
-              </View>
-              <Text style={{fontSize: 20, marginHorizontal: 10, fontWeight:'bold' }}>1</Text>
-              <View style={styles.borderBtn}>
-                <Text style={styles.borderBtnText}>+</Text>
-              </View>
-            </View>
-            <View style={styles.buyBtn}>
-              <Text>Buy</Text>
-            </View>
-          </View>
+          
         </View>
       </View>
     </SafeAreaView>
@@ -93,19 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  borderBtnText: {
-    fontWeight: 'bold',
-    fontSize: 28
-  },
-  buyBtn: {
-    width: 150,
-    height: 40,
-    backgroundColor: colors.orange,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 30
-
-  }
+  
 })
 
 export default DetailsScreen;

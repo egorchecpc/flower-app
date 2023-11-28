@@ -1,10 +1,10 @@
 import {connect} from "react-redux";
 import HomeScreen from "./HomeScreen";
-import { likeFlower, addToCart, removeFromCart } from "../../redux/mainReducer";
+import { likeFlower, changeCartStatus } from "../../redux/mainReducer";
 
-const HomeScreenContainer = ({flowers, navigation, likeFlower, addToCart}) => {
+const HomeScreenContainer = ({flowers, navigation, likeFlower, changeCartStatus}) => {
     return (
-        <HomeScreen flowers={flowers} navigation={navigation} likeFlower={likeFlower} addToCart={addToCart} removeFromCart={removeFromCart}/>
+        <HomeScreen flowers={flowers} navigation={navigation} likeFlower={likeFlower} changeCartStatus={changeCartStatus}/>
     )
 }
 
@@ -16,17 +16,15 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         likeFlower: (id) => {
+            console.log('like in Home container')
             let action = likeFlower(id);
             dispatch(action)
-            console.log(2)
         },
-        addToCart: (id) => {
-            let action = addToCart(id);
+        changeCartStatus: (id) => {
+            console.log('change in Home container')
+            let action = changeCartStatus(id);
             dispatch(action)
-        },
-        removeFromCart: (id) => {
-            let action = removeFromCart(id);
-            dispatch(action)
+            
         }
     }
 }

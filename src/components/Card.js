@@ -6,27 +6,26 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 const width = Dimensions.get('screen').width/2 - 30
 
-const Card = ({flower, navigation, likeFlower, addToCart, removeFromCart}) => {
+const Card = ({flower, navigation, likeFlower, changeCartStatus}) => {
   const [isLiked, setLiked] = useState(flower.item.like);
   const [inCart, setCartStatus] = useState(flower.item.cart)
   const handleLikePress = () => {
     setLiked(prevLiked => {
       const newLiked = !prevLiked;
+      likeFlower(flower.item.id)
+      console.log('like in Card')
       return newLiked;
     });
-    likeFlower(flower.item.id)
-    console.log(1)
+    
   };
   const handleCartPress = () => {
     setCartStatus(prevInCart => {
       const newInCart = !prevInCart;
+      console.log('change in Card')
+      changeCartStatus(flower.item.id)
       return newInCart;
     });
-    if (inCart) {
-      removeFromCart(flower.item.id);
-    } else {
-      addToCart(flower.item.id);
-    }
+    
   }
   return (
     <TouchableOpacity onPress={() => navigation.navigate('Details', flower) }>

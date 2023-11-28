@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import colors from '../helpers/colors';
 
-const CategoriesList = ({categoryIndex, setCategoryIndex}) => {
-  const categories = ['POPULAR', 'ORGANIC', 'INDOORS', 'SYNTHENTIC']
+const CategoriesList = ({categoryIndex, handleFilterPress}) => {
+  const categories = ['ALL', 'POPULAR', 'ORGANIC', 'SYNTHENTIC']
   return (
     <View style={styles.categoryContainer}>
       {categories.map((item, index) => (
-        <TouchableOpacity key={index} activeOpacity={0.5} onPress={() => setCategoryIndex(index) }>
+        <TouchableOpacity key={index} activeOpacity={0.5} onPress={() => handleFilterPress(index) }>
           <Text style={[styles.categoryText, categoryIndex == index && styles.categoryTextSelected  ]}>{item}</Text>
         </TouchableOpacity>
       ))}

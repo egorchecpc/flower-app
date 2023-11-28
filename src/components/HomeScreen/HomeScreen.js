@@ -9,10 +9,52 @@ import Card from '../Card';
 
 
 
-const HomeScreen = ({navigation, flowers, likeFlower, addToCart, removeFromCart}) => {
+const HomeScreen = ({navigation, flowers, likeFlower, changeCartStatus}) => {
 
   const [categoryIndex, setCategoryIndex] = useState(0);
+  const [flowersData, setFlowers] = useState(flowers);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc');
+  useEffect(()=>{
+    setFlowers(flowers)
+  },[flowers])
 
+  const handleFilterPress = (index) => {
+    setCategoryIndex((prevIndex) => {
+      if (index === 0) {
+        setFlowers(flowers);
+      } else {
+        setFlowers(flowers.filter((item) => item.category === index - 1));
+      }
+      return index;
+    });
+  };
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filteredFlowers = flowers.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFlowers(filteredFlowers);
+  };
+  const handleSortToggle = () => {
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    sortFlowers();
+  };
+
+  const sortFlowers = () => {
+    const sortedFlowers = [...flowersData].sort((a, b) => {
+      const priceA = parseFloat(a.price);
+      const priceB = parseFloat(b.price);
+
+      if (sortOrder === 'asc') {
+        return priceA - priceB;
+      } else {
+        return priceB - priceA;
+      }
+    });
+
+    setFlowers(sortedFlowers);
+  };
   return (
     <SafeAreaView style={{flex: 1, paddingHorizontal: 20, backgroundColor: colors.white}}>
       <View style={styles.header}>
@@ -27,18 +69,30 @@ const HomeScreen = ({navigation, flowers, likeFlower, addToCart, removeFromCart}
       <View style={{marginTop: 30, flexDirection:'row'}}>
         <View style={styles.searchContainer}>
           <Ionicons name='search' size={22} color='gray' style={{marginLeft:20}} />
-          <TextInput placeholder="Search" style={styles.input} />
+          <TextInput
+          placeholder="Search"
+          style={styles.input}
+          value={searchQuery}
+          onChangeText={handleSearch}
+        />
         </View>
         <View style={styles.sort}>
-          <MaterialIcons name="sort" size={40} color='#ff5a3c' />
+          <TouchableOpacity onPress={handleSortToggle}>
+            <MaterialIcons name="sort" size={40} color="#ff5a3c" />
+          </TouchableOpacity>
         </View>
       </View>
-      <CategoriesList categoryIndex={categoryIndex} setCategoryIndex= {setCategoryIndex} />
+      <CategoriesList categoryIndex={categoryIndex} handleFilterPress= {handleFilterPress} />
       <FlatList columnWrapperStyle={{justifyContent: 'space-between'}}
                 showsVerticalScrollIndicator={false}
                 numColumns={2}
-                data={flowers}
-                renderItem={(item) => <Card flower={item} navigation={navigation} likeFlower={likeFlower} addToCart={addToCart} removeFromCart={removeFromCart}/>} />
+                data={flowersData}
+                renderItem={(item) =>  <Card
+                  flower={item}
+                  navigation={navigation}
+                  likeFlower={likeFlower}
+                  changeCartStatus={changeCartStatus}
+                />} />
     </SafeAreaView>
   )
 }

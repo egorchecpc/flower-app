@@ -7,31 +7,37 @@ import { useState, useEffect } from 'react';
 
 
 
-const CartScreen = ({navigation, flowers, likeFlower, addToCart, removeFromCart}) => {
+const CartScreen = ({navigation, flowers, likeFlower, changeCartStatus}) => {
 
-  const [cartFlowers,setCartFlowers] = useState(flowers)
-  const [test, setTest] = useState(0)
-  console.log(removeFromCart.toString())
+  const [cartFlowers,setCartFlowers] = useState(flowers);
+  const [totalPrice, setTotalPrice] = useState(0);
   useEffect(() => {
-    setCartFlowers(flowers);
-    console.log(flowers)
+    let newFlowers = flowers.filter((item)=>item.cart===true)
+    setCartFlowers(newFlowers)
+    const total = newFlowers.reduce((acc, item) => acc + parseFloat(item.price), 0);
+    setTotalPrice(total);
   }, [flowers]);
   
-  useEffect(()=>{
-    console.log(test)
-  },[test])
+
   
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#f5f5f5'}}>
-      
-      <TouchableOpacity onPress={()=>setTest(test + 1)}><Text>${test}</Text></TouchableOpacity>
       <View style={styles.header}>
         <MaterialIcons name='arrow-back' size={28} onPress={() => navigation.goBack()} />
       </View>
       <FlatList contentContainerStyle={{ alignItems: 'center', justifyContent: 'center' }}
                 showsVerticalScrollIndicator={false}
                 numColumns={1}
-                data={cartFlowers} renderItem={(item) => <Card flower={item} navigation={navigation} likeFlower={likeFlower} addToCart={addToCart} removeFromCart={removeFromCart}/>} />
+                data={cartFlowers} renderItem={(item) => <Card flower={item} navigation={navigation} likeFlower={likeFlower} changeCartStatus={changeCartStatus}/>} />
+
+      <View style={styles.purchaseFlower}>  
+        <View style={styles.buyBtn}>
+          <TouchableOpacity onPress={() => console.log('hey') }>
+            <Text style={styles.butBtn_txt}>Hello Bro</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.totalPriceText}>Total Price: ${totalPrice.toFixed(2)}</Text>        
+      </View>
     </SafeAreaView>
   )
 }
@@ -41,10 +47,36 @@ const CartScreen = ({navigation, flowers, likeFlower, addToCart, removeFromCart}
 const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 20,
-    marginTop: 20, 
-    flexDirection: 'row', 
+    marginTop: 20,
+    flexDirection: 'row',
     justifyContent: 'space-between'
   },
-})
+  borderBtnText: {
+    fontWeight: 'bold',
+    fontSize: 28
+  },
+  buyBtn: {
+    width: 150,
+    height: 40,
+    backgroundColor: colors.orange,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
+  butBtn_txt: {
+    color: 'white'
+  },
+  purchaseFlower: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
+    margin: 20 // Move the button to the bottom of the screen
+  },
+  totalPriceText: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: colors.dark,
+  },
+});
 
 export default CartScreen;

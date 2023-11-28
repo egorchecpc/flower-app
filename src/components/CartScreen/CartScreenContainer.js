@@ -1,10 +1,10 @@
 import {connect} from "react-redux";
 import CartScreen from "./CartScreen";
-import { likeFlower, addToCart, removeFromCart } from "../../redux/mainReducer";
+import { likeFlower, changeCartStatus } from "../../redux/mainReducer";
 
-const CartScreenContainer = ({flowers, navigation}) => {
+const CartScreenContainer = ({flowers, navigation, likeFlower, changeCartStatus}) => {
     return (
-        <CartScreen flowers={flowers} navigation={navigation} likeFlower={likeFlower} addToCart={addToCart} removeFromCart={removeFromCart}/>
+        <CartScreen flowers={flowers} navigation={navigation} likeFlower={likeFlower} changeCartStatus={changeCartStatus}/>
     )
 }
 
@@ -18,16 +18,13 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         likeFlower: (id) => {
+            console.log('like in Cart container')
             let action = likeFlower(id);
             dispatch(action);
-            console.log('2`')
         },
-        addToCart: (id) => {
-            let action = addToCart(id);
-            dispatch(action)
-        },
-        removeFromCart: (id) => {
-            let action = removeFromCart(id);
+        changeCartStatus: (id) => {
+            console.log('change in Cart container')
+            let action = changeCartStatus(id);
             dispatch(action)
         }
     }
